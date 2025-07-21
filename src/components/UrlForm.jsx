@@ -14,8 +14,9 @@ const UrlForm = () => {
 
   const handleSubmit = async () => {
     try {
-      const shortUrl = await createShortUrl(url, customSlug);
-      setShortUrl(shortUrl);
+      const shortUrlData = await createShortUrl(url, customSlug);
+      const backendBaseUrl = import.meta.env.VITE_BACKEND_URL;
+      setShortUrl(`${backendBaseUrl}/${shortUrlData.short_url}`);
       queryClient.invalidateQueries({ queryKey: ["userUrls"] });
       setError(null);
       setUrl("");

@@ -1,8 +1,10 @@
 import React, { useEffect } from "react";
+import { useNavigate } from "@tanstack/react-router";
 import UrlForm from "../components/UrlForm";
 import UserUrl from "../components/UserUrl";
 
 const DashboardPage = () => {
+  const navigate = useNavigate(); 
   useEffect(() => {
     const checkAuth = async () => {
       const res = await fetch('http://localhost:3000/api/auth/check-auth', {

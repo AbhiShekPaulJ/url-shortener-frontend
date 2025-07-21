@@ -14,9 +14,8 @@ const UrlForm = () => {
 
   const handleSubmit = async () => {
     try {
-      const shortUrlData = await createShortUrl(url, customSlug);
-      const backendBaseUrl = import.meta.env.VITE_BACKEND_URL;
-      setShortUrl(`${backendBaseUrl}/${shortUrlData.short_url}`);
+      const shortUrl = await createShortUrl(url, customSlug);
+      setShortUrl(shortUrl);
       queryClient.invalidateQueries({ queryKey: ["userUrls"] });
       setError(null);
       setUrl("");
@@ -51,6 +50,19 @@ const UrlForm = () => {
           className="w-full px-4 py-3 border  border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
       </div>
+      <button
+        onClick={handleSubmit}
+        type="submit"
+        className="w-full bg-[#4424ec] text-white mt-5 py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50"
+      >
+        Shorten URL
+      </button>
+      {error && <div className="mt-4 p-3 bg-red-100 text-red-700 rounded-md">{error}</div>}
+      {!isAuthenticated && (
+        <div className="mt-4 p-3 bg-yellow-100 text-center text-yellow-800 rounded-md">
+          You must be logged in to use customize URLs.
+        </div>
+      )}
       {isAuthenticated && (
         <div className="mt-4">
           <label htmlFor="customSlug" className="block text-sm font-medium text-gray-100 mb-1">
@@ -66,20 +78,6 @@ const UrlForm = () => {
           />
         </div>
       )}
-      <button
-        onClick={handleSubmit}
-        type="submit"
-        className="w-full bg-[#4424ec] text-white mt-5 py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50"
-      >
-        Shorten URL
-      </button>
-      {error && <div className="mt-4 p-3 bg-red-100 text-red-700 rounded-md">{error}</div>}
-      {!isAuthenticated && (
-        <div className="mt-4 p-3 bg-yellow-100 text-center text-yellow-800 rounded-md">
-          You must be logged in to customize URLs.
-        </div>
-      )}
-      
       {shortUrl && (
         <div className="mt-6">
           <h2 className="text-lg font-semibold mb-2">Your shortened URL:</h2>
@@ -92,7 +90,7 @@ const UrlForm = () => {
             />
             <button
               onClick={handleCopy}
-              className={`px-4 py-2 rounded-md lg:w-[20%]  mt-5  duration-200 ${
+              className={`px-4 py-2 rounded-md w-[20%] sm:w-[50%] mt-5  duration-200 ${
                 copied
                   ? "bg-green-500 text-white hover:bg-green-600"
                   : "bg-blue-600 hover:bg-blue-400"

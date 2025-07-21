@@ -40,7 +40,7 @@ const Navbar = () => {
 
   const onLogout = async () => {
     try {
-      const res = await fetch("http://localhost:3000/api/auth/logout", {
+      const res = await fetch("https://url-shortener-backend-nqi0.onrender.com/api/auth/logout", {
         method: "POST",
         credentials: "include",
       });

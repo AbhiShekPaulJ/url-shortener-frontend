@@ -4,6 +4,7 @@ import { getAllUserUrls } from '../api/user.api'
 
 const UserUrl = () => {
   const backendBaseUrl = import.meta.env.VITE_BACKEND_URL;
+
   const { data: urls, isLoading, isError, error } = useQuery({
     queryKey: ['userUrls'],
     queryFn: getAllUserUrls,
@@ -84,7 +85,7 @@ const UserUrl = () => {
                       href={`${backendBaseUrl}/${url.short_url}`} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className=" hover:text-gray-50 hover:underline"
+                      className=" hover:text-black hover:underline"
                     >
                       {`${backendBaseUrl}/${url.short_url}`}
                     </a>

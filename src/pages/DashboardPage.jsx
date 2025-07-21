@@ -7,7 +7,7 @@ const DashboardPage = () => {
   const navigate = useNavigate(); 
   useEffect(() => {
     const checkAuth = async () => {
-      const res = await fetch('http://localhost:3000/api/auth/check-auth', {
+      const res = await fetch('https://url-shortener-backend-nqi0.onrender.com/api/auth/check-auth',  {
         method: 'GET',
         credentials: 'include',
       });

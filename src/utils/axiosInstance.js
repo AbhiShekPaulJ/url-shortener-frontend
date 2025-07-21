@@ -24,7 +24,7 @@ axiosInstance.interceptors.response.use(
                     break;
                 case 401:
                     console.error("Unauthorized:", data);
-                    // You could redirect to login page or refresh token here
+                    window.location.href = '/login';
                     break;
                 case 403:
                     console.error("Forbidden:", data);
@@ -44,6 +44,10 @@ axiosInstance.interceptors.response.use(
         } else {
             // Something happened in setting up the request
             console.error("Error:", error.message);
+        }
+
+        if (process.env.NODE_ENV === 'development') {
+            console.error("Axios Error:", error);
         }
 
         // You can customize the error object before rejecting

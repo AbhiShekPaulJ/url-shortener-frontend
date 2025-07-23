@@ -21,7 +21,7 @@ const LoginForm = ({ state }) => {
         try {
             const data = await loginUser(password, email);
             dispatch(login(data.user));
-            window.dispatchEvent(new Event("login-success")); // notify Navbar
+            window.dispatchEvent(new Event("login-success"));
             navigate({to:"/dashboard"})
             setLoading(false);
             console.log("signin success")
